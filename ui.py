@@ -2,6 +2,7 @@
 # import baiduBug.py
 from PyQt4 import QtGui,QtCore
 from ui_baiduBug import Ui_test
+from baiduBug import BdBug
 #Ui_test为Designer生成的类名
  
 class UI(QtGui.QWidget, Ui_test):
@@ -12,11 +13,12 @@ class UI(QtGui.QWidget, Ui_test):
 
     @QtCore.pyqtSignature("")
     def on_btn_submit_clicked(self):
-        """pbHello和界面设计时的objectName一致"""
+        """btn_submit和界面设计时的objectName一致"""
         #获得贴吧文章ID
-        url = self.txt_postID.text()
-        return url
- 		
+        post_id = self.txt_postID.text()
+        post_id = str(post_id)
+        myBdBug = BdBug(post_id)
+        myBdBug.getTxt()
  
 if __name__ == '__main__':
     import sys
