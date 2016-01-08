@@ -66,7 +66,7 @@ class Ui_test(object):
         QtCore.QMetaObject.connectSlotsByName(test)
 
     def retranslateUi(self, test):
-        test.setWindowTitle(_translate("test", "百度贴吧爬虫 ver.1.0", None))
+        test.setWindowTitle(_translate("test", "百度贴吧爬虫 by muyyi ver.1.0", None))
         self.label.setText(_translate("test", "http://tieba.baidu.com/p/", None))
         self.ckb_fifter.setText(_translate("test", "智能筛选：", None))
         self.btn_submit.setText(_translate("test", "确定", None))

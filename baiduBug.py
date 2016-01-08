@@ -6,6 +6,8 @@ class BdBug(object):
 	#读取相应网站
 	def __init__(self,post_id):
 		self.myID = post_id
+		self.title = u'暂无标题.txt'
+		self.page_count = 1
 		print u'程序开始启动'
 
 	def getHtml(self,url):
@@ -43,12 +45,12 @@ class BdBug(object):
 		title = self.getTitle(page).decode('utf-8')
 		title = re.sub(r'[\\\/:\*\?"<>\||]',' ',title)
 		print title
-		count = self.getCount(page)
-		title = title+'.txt'
+		self.page_count = self.getCount(page)
+		self.title = title+'.txt'
 		#将标题里的\ / : * ? " < > 等非法字符替换为一个空格
-		f = open(title,'w')
+		f = open(self.title,'w')
 		#从第一页开始抓取文章
-		for i in range(1,count+1):
+		for i in range(1,self.page_count+1):
 			#这里的i必须转化为str，不然无法连接
 			url = 'http://tieba.baidu.com/p/'+self.myID+'?see_lz=1&pn='+str(i)
 			page = self.getHtml(url)
@@ -66,12 +68,17 @@ class BdBug(object):
 				#对抓取的字符串进行转码，并去掉异常字符
 				string = string.decode('utf-8','ignore')
 				string = re.sub(r'&\w+?;',' ',string)
+				#统计字数代码（调试)
+				# string = '\n'+str(len(string))+'\n'+string
+				#非智能筛选模式(调试)
+				# minlen = 0
 				if len(string)>=minlen:
 					string = string.encode('utf-8')
 					f.write(string)
 			print u'成功抓取第%s页' %i
 		f.close()
-		print u'创建《%s》成功！共%s页' %(title,count)
+		print u'创建《%s》成功！共%s页' %(self.title,self.page_count)
+		return self
 
 def main():
 	print u'请输入要抓取文章的数字链接：'
