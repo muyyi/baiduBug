@@ -78,6 +78,7 @@ class BdBug(object):
 			print u'成功抓取第%s页' %i
 		f.close()
 		print u'创建《%s》成功！共%s页' %(self.title,self.page_count)
+		self.page_count = str(self.page_count) #将int转化为str。方便后面连接字符串操作
 		return self
 
 def main():
